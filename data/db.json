@@ -32,12 +32,12 @@
       "id": 1
     },
     {
-      "id": 2,
       "title": "Desarrollo de aplicaciones móviles con React Native",
       "description": "Crea aplicaciones móviles nativas para iOS y Android utilizando React Native.",
       "beginDate": "2024-03-01",
       "endDate": "2024-06-01",
-      "status": "NOT_STARTED"
+      "status": "NOT_STARTED",
+      "id": 2
     },
     {
       "id": 3,
@@ -114,10 +114,10 @@
       "age": 21
     },
     {
-      "id": 5,
       "firstName": "Charlie",
       "lastName": "Davis",
-      "age": 23
+      "age": 23,
+      "id": 5
     }
   ]
 }
