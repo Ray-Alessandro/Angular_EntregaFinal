@@ -1,0 +1,66 @@
+<div class="home-container">
+  @if(user$ | async; as user) {
+    <div class="welcome-section">
+      <mat-icon class="welcome-icon">waving_hand</mat-icon>
+      <h1 class="welcome-title">Welcome, {{ user.name }}!</h1>
+      <mat-chip class="role-chip" [class.admin-chip]="user.role === 'admin'" [class.user-chip]="user.role === 'user'">
+        <mat-icon>{{ user.role === 'admin' ? 'admin_panel_settings' : 'person' }}</mat-icon>
+        {{ user.role === 'admin' ? 'Administrator' : 'User' }}
+      </mat-chip>
+    </div>
+
+    <div class="features-section">
+      <h2 class="section-title">Available Features</h2>
+      
+      @if(user.role === 'admin') {
+        <div class="features-grid">
+          @for(feature of adminFeatures; track feature.title) {
+            <mat-card class="feature-card clickable" [routerLink]="feature.route">
+              <mat-card-header>
+                <mat-icon class="feature-icon admin-icon">{{ feature.icon }}</mat-icon>
+                <mat-card-title>{{ feature.title }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ feature.description }}</p>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-button color="primary">
+                  <mat-icon>arrow_forward</mat-icon>
+                  Go to module
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+        <div class="info-message admin-message">
+          <mat-icon>admin_panel_settings</mat-icon>
+          <p><strong>Administrator Role:</strong> You have full permissions (CRUD) on Students and Courses. You can create, edit, delete and view details.</p>
+        </div>
+      } @else {
+        <div class="features-grid">
+          @for(feature of userFeatures; track feature.title) {
+            <mat-card class="feature-card clickable" [routerLink]="feature.route">
+              <mat-card-header>
+                <mat-icon class="feature-icon user-icon">{{ feature.icon }}</mat-icon>
+                <mat-card-title>{{ feature.title }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{ feature.description }}</p>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-button color="primary">
+                  <mat-icon>arrow_forward</mat-icon>
+                  View courses
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          }
+        </div>
+        <div class="info-message user-message">
+          <mat-icon>visibility</mat-icon>
+          <p><strong>User Role:</strong> You can only consult courses (view details). You don't have access to Students or edit/delete options.</p>
+        </div>
+      }
+    </div>
+  }
+</div>

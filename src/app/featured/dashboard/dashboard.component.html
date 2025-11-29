@@ -1,0 +1,44 @@
+<mat-drawer-container class="dashboard-container" autosize>
+  <mat-drawer #drawer class="dashboard-sidenav" mode="side">
+    <h5>Menu</h5>
+
+    <mat-nav-list class="dashboard-sidenav-list">
+      @for(item of listItems; track $index) {
+        @if(user$ | async; as user) {
+          @if(item.name !== 'Students' || user.role === 'admin') {
+            <a mat-list-item [routerLink]="item.route" (click)="drawer.toggle()">
+              <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+              <span matListItemLine>{{ item.name }}</span>
+            </a>
+          }
+        }
+      }
+      <a mat-list-item (click)="logout()">
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span matListItemLine>Logout</span>
+      </a>
+    </mat-nav-list>
+
+  </mat-drawer>
+
+  <div class="dashboard-sidenav-content">
+    <mat-toolbar class="dashboard-toolbar">
+      <button matIconButton (click)="drawer.toggle()" class="dashboard-icon" aria-label="Icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Learning Code</span>
+      <span class="spacer"></span>
+      <span>Welcome</span>
+      @if(user$ | async; as user) {
+        <span class="dashboard-username">{{ user?.name }} </span>
+        <mat-icon class="dashboard-user-icon">
+          {{ user.role === 'admin' ? 'admin_panel_settings' : 'person' }}
+        </mat-icon>
+      }
+    </mat-toolbar>
+    <div class="dashboard-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-drawer-container>

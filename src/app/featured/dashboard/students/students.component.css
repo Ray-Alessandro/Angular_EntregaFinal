@@ -1,0 +1,15 @@
+.students-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding-top: 30px;
+}
+
+.students-container-content {
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+}

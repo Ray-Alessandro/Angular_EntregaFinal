@@ -1,0 +1,70 @@
+@if (isLoading$ | async) {
+  <div class="loading-container">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p class="loading-text">Loading students...</p>
+  </div>
+} @else {
+<div class="students-table-container">
+  <mat-form-field class="filtro">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Luis" #input />
+  </mat-form-field>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>N°</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- Nombre Column -->
+      <ng-container matColumnDef="nombres">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</th>
+        <td class="center-row" mat-cell *matCellDef="let row">
+          {{ row.firstName | fullName : row.lastName }}
+        </td>
+      </ng-container>
+
+      <!-- Edad Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Age</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.age }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th class="center-row" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td class="center-row" mat-cell *matCellDef="let row">
+          <button mat-icon-button color="primary" aria-label="Edit Student" routerLink="edit/{{ row.id }}">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Delete Student" (click)="onDeleteStudent(row.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell center-row" colspan="4">
+          There is no data matching the filter "{{ input.value }}".
+        </td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of students"
+    ></mat-paginator>
+  </div>
+
+  <button mat-raised-button class="addStudent" color="primary" routerLink="create">
+    <mat-icon>person_add</mat-icon>
+    Add Student
+   </button>
+</div>
+}

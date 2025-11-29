@@ -1,0 +1,83 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+}
+
+form {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.subtitle {
+    margin: 0 0 24px 0;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+::ng-deep mat-form-field {
+    width: 100%;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    padding-bottom: 0;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    margin-top: 8px;
+}
+
+::ng-deep button[mat-raised-button] {
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+::ng-deep button[mat-raised-button]:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+::ng-deep button[mat-raised-button]:disabled {
+    background-color: #7c7c7c;
+    opacity: 0.5;
+    cursor: not-allowed !important;
+}
+
+form {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

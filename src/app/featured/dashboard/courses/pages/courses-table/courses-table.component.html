@@ -1,0 +1,98 @@
+@if (isLoading$ | async) {
+  <div class="loading-container">
+    <mat-spinner diameter="60"></mat-spinner>
+    <p class="loading-text">Loading courses...</p>
+  </div>
+} @else {
+<div class="courses-table-container">
+  <mat-form-field class="filter-input">
+    <mat-label>Filter Courses</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Math" #input/>
+  </mat-form-field>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.title }}</td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.description }}</td>
+      </ng-container>
+
+      <!-- Begin Date Column -->
+      <ng-container matColumnDef="beginDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Begin Date</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.beginDate | date }}</td>
+      </ng-container>
+
+      <!-- End Date Column -->
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.endDate | date }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td class="center-row" mat-cell *matCellDef="let row">{{ row.status }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th class="center-row" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td class="center-row" mat-cell *matCellDef="let row">
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Edit Course"
+            routerLink="edit/{{ row.id }}"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          @if(isAdmin) {
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Delete Course"
+              (click)="onDeleteCourse(row.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell center-row" colspan="7">
+          There is no data matching the filter "{{ input.value }}".
+        </td>
+      </tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of courses"
+    ></mat-paginator>
+  </div>
+
+  <button mat-raised-button class="addCourse" color="primary" routerLink="create">
+    <mat-icon>add</mat-icon>
+    Add Course
+  </button>
+  
+</div>
+}

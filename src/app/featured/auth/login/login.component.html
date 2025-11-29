@@ -1,0 +1,27 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1>Learning Code</h1>
+    <p class="subtitle">Welcome Back!</p>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Ejm. luis@gmail.com" />
+      @if (loginForm.get('email')?.hasError('required')) {
+      <mat-error>The email is required</mat-error>
+      } @else if (loginForm.get('email')?.hasError('email')) {
+      <mat-error>Please enter a valid email address</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Ejm. 123" />
+      @if (loginForm.get('password')?.hasError('required')) {
+      <mat-error>The password is required</mat-error>
+      } @else if (loginForm.get('password')?.hasError('minlength')) {
+      <mat-error>The password must be at least 6 characters long</mat-error>
+      }
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </form>
+</div>

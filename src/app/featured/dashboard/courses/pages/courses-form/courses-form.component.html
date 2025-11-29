@@ -1,0 +1,69 @@
+<div class="courses-form-container">
+  <form [formGroup]="courseForm" (submit)="onSubmit()" class="add-course-form">
+    @if (isEditMode) {
+    <h2>Edit Course</h2>
+    <mat-form-field>
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="Ejm. 1" disabled value="{{ courseId }}" />
+    </mat-form-field>
+    } @else {
+    <h2>Add Course</h2>
+    }
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Ejm. Mathematics" />
+      @if (courseForm.get('title')?.hasError('required')) {
+      <mat-error>The title is required</mat-error>
+      } @else if (courseForm.get('title')?.hasError('minlength')) {
+      <mat-error>The title must be at least 3 characters long</mat-error>
+      } @else if (courseForm.get('title')?.hasError('maxlength')) {
+      <mat-error>The title has exceeded the maximum allowed characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Ejm. Basic Mathematics Course"
+      ></textarea>
+      @if(courseForm.get('description')?.hasError('required')) {
+      <mat-error>The description is required</mat-error>
+      } @else if(courseForm.get('description')?.hasError('minlength')) {
+      <mat-error>The description must be at least 10 characters long</mat-error>
+      } @else if(courseForm.get('description')?.hasError('maxlength')) {
+      <mat-error>The description has exceeded the maximum allowed characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Fecha inicio - Fecha fin</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="beginDate" placeholder="Fecha inicio" />
+        <input matEndDate formControlName="endDate" placeholder="Fecha fin" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"> </mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="STARTED">Started</mat-option>
+        <mat-option value="SCHEDULED">Scheduled</mat-option>
+        <mat-option value="NOT_STARTED">Not Started</mat-option>
+        <mat-option value="FINISHED">Finished</mat-option>
+      </mat-select>
+      @if(courseForm.get('status')?.hasError('required')) {
+      <mat-error>The status is required</mat-error>
+      }
+    </mat-form-field>
+
+    <button matButton="filled" color="primary" type="submit" [disabled]="courseForm.invalid">
+      Apply Changes
+    </button>
+  </form>
+</div>

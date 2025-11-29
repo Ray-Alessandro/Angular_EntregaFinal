@@ -1,0 +1,78 @@
+.courses-table-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+::ng-deep .filter-input {
+    display: block !important;
+    width: 75% !important;
+    margin: 0 auto !important;
+}
+
+::ng-deep .center-row {
+    text-align: center !important;
+}
+
+::ng-deep .mat-sort-header-container {
+    justify-content: center !important;
+}
+
+.addCourse {
+    margin-top: 15px;
+}
+
+::ng-deep .addCourse {
+    background-color: #1976d2 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    width: 150px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  gap: 20px;
+}
+
+.loading-text {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.courses-table-container {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

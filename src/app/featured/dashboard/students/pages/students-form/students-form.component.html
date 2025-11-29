@@ -1,0 +1,52 @@
+<div class="students-form-container">
+  <form [formGroup]="studentForm" (submit)="onSubmit()" class="add-student-form">
+    
+    @if (isEditMode) {
+    <h2>Edit Student</h2>
+    <mat-form-field>
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="Ejm. 1" disabled value="{{ studentId }}" />
+    </mat-form-field>
+    } @else {
+    <h2>Add Student</h2>
+    }
+
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" placeholder="Ejm. Luis" />
+      @if (studentForm.get('firstName')?.hasError('required')) {
+      <mat-error>The name is required</mat-error>
+      } @else if (studentForm.get('firstName')?.hasError('minlength')) {
+      <mat-error>The name must be at least 3 characters long</mat-error>
+      } @else if (studentForm.get('firstName')?.hasError('maxlength')) {
+      <mat-error>The name has exceeded the maximum allowed characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" placeholder="Ejm. Martinez" />
+      @if(studentForm.get('lastName')?.hasError('required')) {
+      <mat-error>The last name is required</mat-error>
+      } @else if(studentForm.get('lastName')?.hasError('minlength')) {
+      <mat-error>The last name must be at least 3 characters long</mat-error>
+      } @else if(studentForm.get('lastName')?.hasError('maxlength')) {
+      <mat-error>The last name has exceeded the maximum allowed characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Age</mat-label>
+      <input matInput type="number" formControlName="age" placeholder="10" min="1" max="120" />
+      @if(studentForm.get('age')?.hasError('required')) {
+      <mat-error>The age is required</mat-error>
+      } @if(studentForm.get('age')?.hasError('min') || studentForm.get('age')?.hasError('max')) {
+      <mat-error>The age must be between 10 and 80 years</mat-error>
+      }
+    </mat-form-field>
+
+    <button matButton="filled" color="primary" type="submit" [disabled]="studentForm.invalid">
+      Apply Changes
+    </button>
+  </form>
+</div>

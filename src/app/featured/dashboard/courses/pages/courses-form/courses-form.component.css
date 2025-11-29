@@ -1,0 +1,12 @@
+.courses-form-container {
+    width: 100%;
+    height: 100%;
+}
+
+.add-course-form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    gap: 10px;
+}
